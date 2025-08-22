@@ -296,7 +296,7 @@ public class VoidShadowEntity extends FlyingEntity implements Monster {
                 this.setTarget(attacker);
             }
             amount *= 0.5F;
-            attacker.takeKnockback(4.0D, this.getX() - source.getAttacker().getX(), this.getZ() - source.getAttacker().getZ());
+            attacker.takeKnockback(0.5D, this.getX() - source.getAttacker().getX(), this.getZ() - source.getAttacker().getZ());
             attacker.damage(this.getDamageSources().magic(), 1f);
         }
         if (source.getSource() instanceof ThrownRockEntity) {
