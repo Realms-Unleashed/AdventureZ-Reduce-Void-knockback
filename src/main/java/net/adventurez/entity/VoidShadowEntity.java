@@ -126,7 +126,7 @@ public class VoidShadowEntity extends FlyingEntity implements Monster {
                 dataTracker.set(HALF_LIFE_CHANGE, true);
             }
             if (!this.isHalfLife) {
-                this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_KNOCKBACK).setBaseValue((double) (6.0D));
+                this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_KNOCKBACK).setBaseValue((double) (0.5D));
                 this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue((double) 14.0D);
                 this.getAttributeInstance(EntityAttributes.GENERIC_ARMOR).setBaseValue((double) 4.0D);
                 this.isHalfLife = true;

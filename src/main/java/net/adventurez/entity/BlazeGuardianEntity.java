@@ -35,6 +35,7 @@ import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -412,7 +413,7 @@ public class BlazeGuardianEntity extends HostileEntity {
 
         @Override
         public void start() {
-            this.explosionTicker = 20;
+            this.explosionTicker = 30;
             this.guardian.setFireActive(true);
             this.guardian.isTryingToShockwave = true;
         }
@@ -435,8 +436,21 @@ public class BlazeGuardianEntity extends HostileEntity {
                         ((ServerWorld) this.guardian.getWorld()).spawnParticles(ParticleTypes.LAVA, this.guardian.getParticleX(0.7D), this.guardian.getRandomBodyY(), this.guardian.getParticleZ(0.7D),
                                 0, 0.0D, 0.0D, 0.0D, 0.01D);
                     }
+                    if (this.explosionTicker > 0) {
+                        // Play sound every 10 ticks (adjust as needed)
+                        if (this.explosionTicker == 20) {
+                            this.guardian.getWorld().playSound(
+                                    null, // Player - null means all nearby players hear it
+                                    this.guardian.getX(), this.guardian.getY(), this.guardian.getZ(),
+                                    SoundEvents.ENTITY_CREEPER_PRIMED, // Sound to play
+                                    SoundCategory.HOSTILE, // Sound category
+                                    20.0F, // Volume
+                                    0.5F  // Pitch
+                            );
+                        }
+                    }
                     if (!this.guardian.getWorld().isClient() && explosionTicker == 1) {
-                        this.guardian.getWorld().createExplosion(this.guardian, this.guardian.getX(), this.guardian.getY(), this.guardian.getZ(), 6.0F, true, ExplosionSourceType.MOB);
+                        this.guardian.getWorld().createExplosion(this.guardian, this.guardian.getX(), this.guardian.getY(), this.guardian.getZ(), 3.0F, true, ExplosionSourceType.MOB);
                     }
                 }
                 super.tick();
